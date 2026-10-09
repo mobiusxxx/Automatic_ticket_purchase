@@ -19,6 +19,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.edge.options import Options
 
 
 def save_cookies(login_cookies):
@@ -81,10 +82,10 @@ def account_login(login_type: str, login_id=None, login_password=None):
     damai_title = '大麦网-全球演出赛事官方购票平台-100%正品、先付先抢、在线选座！'
 
     login_url = 'https://passport.damai.cn/login'
-    option = webdriver.ChromeOptions()  # 默认Chrome浏览器
+    option = Options() # 默认Chrome浏览器
     # 关闭开发者模式, window.navigator.webdriver 控件检测到你是selenium进入，若关闭会导致出现滑块并无法进入。
-    option.add_experimental_option('excludeSwitches', ['enable-automation'])
-    option.add_argument('--disable-blink-features=AutomationControlled')
+    # option.add_experimental_option('excludeSwitches', ['enable-automation'])
+    # option.add_argument('--disable-blink-features=AutomationControlled')
     # option.add_argument('headless')               # Chrome以后台模式进行，注释以进行调试
     # option.add_argument('window-size=1920x1080')  # 指定分辨率
     # option.add_argument('no-sandbox')             # 取消沙盒模式
@@ -97,7 +98,7 @@ def account_login(login_type: str, login_id=None, login_password=None):
     else:
         chromedriver = os.path.join(os.getcwd(), 'chromedriver_mac')
 
-    driver = webdriver.Chrome(chromedriver, options=option)
+    driver = webdriver.Edge(options=option)
     driver.set_page_load_timeout(60)
     driver.get(login_url)
     if login_type == 'account':
